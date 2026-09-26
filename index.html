@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Panel demostrativo para la trazabilidad y medición de Resultados de Aprendizaje de Fisioterapia.">
+  <title>Motor RA · Fisioterapia</title>
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Ir al contenido</a>
+  <header class="site-header">
+    <div class="container header-content">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">RA</span><div><p class="eyebrow">Fisioterapia · Piloto 2026-2</p><h1>Motor de Resultados de Aprendizaje</h1></div></div>
+      <span class="status"><i></i>Demostración local</span>
+    </div>
+  </header>
+  <div class="container layout">
+    <nav class="sidebar" aria-label="Navegación principal">
+      <button class="nav-item is-active" data-view="inicio"><span>▦</span> Resumen</button>
+      <button class="nav-item" data-view="cargas"><span>↑</span> Cargas</button>
+      <button class="nav-item" data-view="alineacion"><span>↔</span> Alineación</button>
+      <button class="nav-item" data-view="resultados"><span>◔</span> Resultados RA</button>
+      <button class="nav-item" data-view="trazabilidad"><span>⌕</span> Trazabilidad</button>
+      <hr>
+      <button class="nav-item" data-view="gobierno"><span>◈</span> Gobierno y reglas</button>
+    </nav>
+    <main id="main">
+      <section class="view is-active" id="inicio">
+        <div class="page-heading"><div><p class="eyebrow">Vista del coordinador</p><h2>Resumen del proceso</h2><p>Seguimiento de datos, evidencias y decisiones de medición.</p></div><button class="button primary" id="load-example">Cargar ejemplo</button></div>
+        <div class="notice"><strong>Principio rector.</strong> La tributación curricular es oficial. La nota genera una evidencia, pero solo una alineación explícita y validada permite relacionarla con un RA.</div>
+        <div class="metrics" id="metrics"></div>
+        <div class="panel split"><div><h3>Flujo controlado</h3><ol class="process"><li class="done"><b>1</b><span>Profesor entrega calificaciones</span></li><li class="done"><b>2</b><span>Coordinador normaliza y consolida</span></li><li><b>3</b><span>IA propone alineación por actividad</span></li><li><b>4</b><span>Coordinador valida la decisión</span></li><li><b>5</b><span>Motor calcula y explica resultados</span></li></ol></div><div><h3>Estado de las alineaciones</h3><div class="empty-chart" id="alignment-chart"><span>Sin datos cargados</span></div></div></div>
+      </section>
+      <section class="view" id="cargas">
+        <div class="page-heading"><div><p class="eyebrow">Datos de entrada</p><h2>Cargas de profesores</h2><p>Importe un CSV con asignatura, estudiante, actividad y nota.</p></div></div>
+        <div class="panel"><div class="drop-zone"><input id="file-input" type="file" accept=".csv,text/csv"><label for="file-input"><span class="upload-icon">↑</span><strong>Seleccione un archivo CSV</strong><small>Las filas ambiguas se conservan para revisión.</small></label></div><div class="actions"><button class="button secondary" id="download-template">Descargar plantilla</button><button class="button ghost" id="clear-data">Limpiar datos locales</button></div></div>
+        <div class="panel" id="import-summary"><h3>Validación de la carga</h3><p class="muted">Aún no se ha cargado información.</p></div>
+      </section>
+      <section class="view" id="alineacion">
+        <div class="page-heading"><div><p class="eyebrow">Decisiones académicas</p><h2>Actividades y alineación</h2><p>La propuesta se genera una sola vez por actividad e instrumento; el coordinador decide.</p></div><button class="button primary" id="generate-package">Generar paquete de IA</button></div>
+        <div class="notice warning"><strong>Control obligatorio.</strong> La IA no modifica RA, tributaciones ni pesos. Sus propuestas permanecen pendientes hasta la validación humana.</div>
+        <div class="panel"><div class="table-wrap"><table><thead><tr><th>Actividad</th><th>Asignatura</th><th>Instrumento</th><th>Registros</th><th>Propuesta</th><th>Decisión</th></tr></thead><tbody id="activities-table"></tbody></table></div></div>
+        <dialog id="package-dialog"><form method="dialog"><div class="dialog-header"><div><p class="eyebrow">Análisis manual sin API</p><h3>Paquete para ChatGPT</h3></div><button class="icon-button" aria-label="Cerrar">×</button></div><p>Copie este contexto, solicite el análisis y después registre la respuesta como propuesta en la actividad correspondiente.</p><textarea id="ai-package" readonly></textarea><div class="actions"><button class="button secondary" id="copy-package" type="button">Copiar JSON</button><button class="button primary">Cerrar</button></div></form></dialog>
+      </section>
+      <section class="view" id="resultados">
+        <div class="page-heading"><div><p class="eyebrow">Medición reproducible</p><h2>Resultados de aprendizaje</h2><p>Los métodos se muestran como perspectivas separadas para evitar doble conteo.</p></div></div>
+        <div class="notice"><strong>Método institucional.</strong> Agrega resultados de asignatura por el factor oficial de tributación y el avance curricular. El método por evidencia usa solo alineaciones validadas.</div>
+        <div class="panel"><div class="table-wrap"><table><thead><tr><th>Resultado de aprendizaje</th><th>Institucional</th><th>Por evidencia validada</th><th>Lectura</th><th>Origen</th></tr></thead><tbody id="results-table"></tbody></table></div></div>
+      </section>
+      <section class="view" id="trazabilidad">
+        <div class="page-heading"><div><p class="eyebrow">Auditoría</p><h2>Trazabilidad de evidencia</h2><p>El recorrido permite explicar el origen de cada resultado.</p></div></div>
+        <div class="panel"><div class="trace-chain"><span>Estudiante</span><b>→</b><span>Evaluación</span><b>→</b><span>Actividad</span><b>→</b><span>Evidencia</span><b>→</b><span>Alineación</span><b>→</b><span>RA</span></div><div class="table-wrap"><table><thead><tr><th>Estudiante</th><th>Asignatura</th><th>Actividad</th><th>Nota</th><th>Evidencia</th><th>Alineación</th></tr></thead><tbody id="trace-table"></tbody></table></div></div>
+      </section>
+      <section class="view" id="gobierno">
+        <div class="page-heading"><div><p class="eyebrow">Marco operativo</p><h2>Gobierno y reglas estables</h2><p>Resumen funcional tomado del documento maestro del Motor RA.</p></div></div>
+        <div class="rule-grid"><article class="panel"><h3>Programa y comité</h3><p>Define los RA oficiales, la tributación Asignatura → RA y los niveles Introduce, Refuerza y Domina.</p></article><article class="panel"><h3>Coordinador</h3><p>Normaliza, consolida, revisa instrumentos, valida alineaciones y consulta cálculos y reportes.</p></article><article class="panel"><h3>Profesor</h3><p>Entrega el archivo de calificaciones. No configura RA, tributación ni reglas de cálculo.</p></article><article class="panel"><h3>IA</h3><p>Propone una alineación justificada a partir de criterios y evidencia. No toma decisiones curriculares.</p></article></div>
+        <div class="panel"><h3>Controles que la interfaz conserva</h3><ul class="rules"><li>No convertir una nota en evidencia de un RA sin alineación explícita.</li><li>No usar Introduce, Refuerza o Domina como peso de actividad.</li><li>No asignar automáticamente un examen global a todos los RA.</li><li>No eliminar registros ambiguos: se mantienen en revisión.</li><li>No mezclar sin autorización el cálculo institucional y el cálculo por evidencia.</li><li>Mantener los RA asociados a una versión curricular para conservar el histórico.</li></ul></div>
+      </section>
+    </main>
+  </div>
+  <footer><div class="container">Motor RA Fisioterapia · Piloto 2026-2 · Sitio estático para GitHub Pages</div></footer>
+  <script src="assets/app.js"></script>
+</body>
+</html>

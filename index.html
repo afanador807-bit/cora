@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CORA: seguimiento de los Resultados de Aprendizaje del programa de Fisioterapia.">
+  <title>CORA · Fisioterapia</title>
+  <link rel="stylesheet" href="assets/styles.css?v=cora-20260926">
+</head>
+<body>
+  <a class="skip-link" href="#main">Ir al contenido</a>
+  <header class="site-header">
+    <div class="container header-content">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">CORA</span><div><p class="eyebrow">Universidad del Cauca · Fisioterapia</p><h1>Consolidación de Resultados de Aprendizaje</h1></div></div>
+      <span class="status"><i></i>Versión estática</span>
+    </div>
+  </header>
+  <div class="container layout">
+    <nav class="sidebar" aria-label="Navegación principal">
+      <button class="nav-item is-active" data-view="inicio"><span>01</span> Resumen</button>
+      <button class="nav-item" data-view="cargas"><span>02</span> Cargas</button>
+      <button class="nav-item" data-view="alineacion"><span>03</span> Alineación</button>
+      <button class="nav-item" data-view="resultados"><span>04</span> Resultados RA</button>
+      <button class="nav-item" data-view="trazabilidad"><span>05</span> Trazabilidad</button>
+      <hr>
+      <button class="nav-item" data-view="gobierno"><span>06</span> Gobierno y reglas</button>
+    </nav>
+    <main id="main">
+      <section class="view is-active" id="inicio">
+        <div class="page-heading"><div><p class="eyebrow">Vista del coordinador</p><h2>Resumen del proceso</h2><p>Seguimiento de datos, evidencias y decisiones de medición.</p></div><button class="button primary" id="load-example">Cargar ejemplo</button></div>
+        <div class="notice"><strong>Regla de medición.</strong> Las actividades codificadas usan el mapeo precargado. Todo examen se asigna automáticamente a cada RA con aporte en su asignatura; el aporte determina su peso: Introduce 0,33, Refuerza 0,66 y Domina 1,00.</div>
+        <div class="metrics" id="metrics"></div>
+        <div class="panel split"><div><h3>Flujo controlado</h3><ol class="process"><li class="done"><b>1</b><span>Profesor entrega calificaciones</span></li><li class="done"><b>2</b><span>El sistema normaliza y agrupa actividades</span></li><li><b>3</b><span>El código aplica el mapeo precargado; el examen hereda todos los RA aportados</span></li><li><b>4</b><span>El nivel de aporte define el peso para cada RA</span></li><li><b>5</b><span>El resultado ponderado conserva su trazabilidad</span></li></ol></div><div><h3>Estado de los mapeos</h3><div class="empty-chart" id="alignment-chart"><span>Sin datos cargados</span></div></div></div>
+      </section>
+      <section class="view" id="cargas">
+        <div class="page-heading"><div><p class="eyebrow">Registro académico</p><h2>Cargar notas</h2><p>Elija el periodo y añada los archivos CSV de sus asignaturas.</p></div></div>
+        <div class="panel"><div class="import-options"><label>Periodo de las notas que va a agregar<select id="period-choice" required><option value="">Seleccione el periodo</option><option>2024-1</option><option>2024-2</option><option>2025-1</option><option>2025-2</option><option>2026-1</option><option>2026-2</option><option>2027-1</option><option>2027-2</option><option value="otro">Otro periodo…</option></select></label><label id="custom-period-wrap" hidden>Escriba el periodo<input id="custom-period" type="text" placeholder="Ej. 2028-1"></label><label>Al cargar archivos<select id="import-mode"><option value="append">Agregar a los datos cargados</option><option value="replace">Reemplazar los datos cargados</option></select></label></div><p class="muted">El periodo que seleccione se asignará a todas las notas de esta carga. Para comparar periodos, cargue cada grupo por separado y seleccione “Agregar a los datos cargados”. El semestre se detecta desde el nombre de la asignatura usando la matriz curricular.</p><div class="drop-zone"><input id="file-input" type="file" accept=".csv,text/csv" multiple><label for="file-input"><span class="upload-icon">↑</span><strong>Seleccione uno o varios archivos CSV</strong><small>Incluya asignatura, estudiante, actividad, código, instrumento y nota. El semestre se reconoce por el nombre de asignatura.</small></label></div><div class="actions"><button class="button secondary" id="download-template">Descargar plantilla</button><button class="button ghost" id="clear-data">Limpiar datos locales</button></div></div>
+        <div class="panel" id="import-summary"><h3>Validación de la carga</h3><p class="muted">Aún no se ha cargado información.</p></div>
+      </section>
+      <section class="view" id="alineacion">
+        <div class="page-heading"><div><p class="eyebrow">Matriz curricular</p><h2>Actividades y alineación</h2><p>La página reconoce asignatura y semestre, y aplica los códigos y RA definidos en la matriz.</p></div><button class="button primary" id="generate-package">Preparar análisis de actividades</button></div>
+        <div class="notice"><strong>Mapeo aplicado automáticamente.</strong> La tributación oficial determina los RA asociados. Si el nombre de la actividad o instrumento contiene “examen”, se mapea a todos los RA con aporte de la asignatura aunque no incluya código.</div>
+        <div class="panel"><div class="table-wrap"><table><thead><tr><th>Actividad</th><th>Asignatura</th><th>Semestre detectado</th><th>Tributación curricular oficial</th><th>Código</th><th>Instrumento</th><th>Registros</th><th>Mapeo de actividad</th></tr></thead><tbody id="activities-table"></tbody></table></div></div>
+        <dialog id="package-dialog"><form method="dialog"><div class="dialog-header"><div><p class="eyebrow">Datos de análisis</p><h3>Paquete de actividades</h3></div><button class="icon-button" aria-label="Cerrar">×</button></div><p>Incluye los códigos, los semestres y las alineaciones curriculares detectadas para las actividades cargadas.</p><textarea id="ai-package" readonly></textarea><div class="actions"><button class="button secondary" id="copy-package" type="button">Copiar JSON</button><button class="button primary">Cerrar</button></div></form></dialog>
+      </section>
+      <section class="view" id="resultados">
+        <div class="page-heading"><div><p class="eyebrow">Medición reproducible</p><h2>Resultados de aprendizaje</h2><p>Porcentaje de logro por RA, semestre y periodo académico.</p></div></div>
+        <div class="notice"><strong>Fórmula aplicada.</strong> Aporte de cada nota = 100 × (nota / 5) × factor del RA. Introduce = 0,33; Refuerza = 0,66; Domina = 1,00. El resultado del semestre es el promedio de esos aportes ya ajustados; por eso una nota de 5,0 en una asignatura que Introduce aporta 33 %, en Refuerza aporta 66 % y en Domina aporta 100 %. Se excluyen filas inválidas y asignaturas con “Sin aporte”.</div>
+        <p id="results-quality" class="result-quality" role="status">Los errores de algunas filas no impiden calcular el resultado: se omiten y se usan los registros válidos.</p>
+        <div class="panel"><div class="chart-heading"><div><h3>Trayectoria de RA por semestre</h3><p class="muted">Seleccione un periodo y los semestres que desea comparar. Las líneas muestran RA1 y RA2.</p></div><label>Periodo<select id="trajectory-period"><option value="">Sin datos</option></select></label></div><fieldset class="semester-fieldset"><legend>Semestres a mostrar</legend><div id="trajectory-semester-options" class="semester-options"><span class="muted">Cargue notas para mostrar semestres.</span></div><button class="text-button" id="select-all-semesters" type="button">Seleccionar todos</button></fieldset><div class="chart-legend"><span><i class="legend-ra1"></i>RA1</span><span><i class="legend-ra2"></i>RA2</span></div><div id="period-chart" class="line-chart"><span class="muted">Cargue notas para generar el gráfico.</span></div></div>
+        <div class="panel"><div class="chart-heading"><div><h3>Comparación de RA dentro de un periodo</h3><p class="muted">Contraste la evolución de RA1 y RA2 entre los semestres del periodo seleccionado.</p></div><label>Periodo<select id="period-filter"><option value="">Sin datos</option></select></label></div><div class="chart-legend"><span><i class="legend-ra1"></i>RA1</span><span><i class="legend-ra2"></i>RA2</span></div><div id="semester-chart" class="line-chart"><span class="muted">Cargue notas para generar el gráfico.</span></div></div>
+        <div class="panel"><h3>Valores que alimentan los gráficos</h3><div class="table-wrap"><table><thead><tr><th>Periodo</th><th>Semestre</th><th>RA</th><th>Logro ponderado</th><th>Notas válidas</th><th>Factor de aporte promedio</th></tr></thead><tbody id="results-table"></tbody></table></div></div>
+      </section>
+      <section class="view" id="trazabilidad">
+        <div class="page-heading"><div><p class="eyebrow">Auditoría</p><h2>Trazabilidad de evidencia</h2><p>El recorrido permite explicar el origen de cada resultado.</p></div></div>
+        <div class="panel"><div class="trace-chain"><span>Estudiante</span><b>→</b><span>Evaluación</span><b>→</b><span>Actividad</span><b>→</b><span>Evidencia</span><b>→</b><span>Alineación</span><b>→</b><span>RA</span></div><div class="table-wrap"><table><thead><tr><th>Estudiante</th><th>Asignatura</th><th>Actividad</th><th>Nota</th><th>Evidencia</th><th>Alineación</th></tr></thead><tbody id="trace-table"></tbody></table></div></div>
+      </section>
+      <section class="view" id="gobierno">
+        <div class="page-heading"><div><p class="eyebrow">Marco operativo</p><h2>Gobierno y reglas estables</h2><p>Resumen funcional tomado del documento maestro del Motor RA.</p></div></div>
+        <div class="rule-grid"><article class="panel"><h3>Programa y comité</h3><p>Define los RA oficiales, la tributación Asignatura → RA y los niveles Introduce, Refuerza y Domina.</p></article><article class="panel"><h3>Coordinador</h3><p>Normaliza, consolida, revisa instrumentos, valida alineaciones y consulta cálculos y reportes.</p></article><article class="panel"><h3>Profesor</h3><p>Entrega el archivo de calificaciones. No configura RA, tributación ni reglas de cálculo.</p></article><article class="panel"><h3>IA</h3><p>Propone una alineación justificada a partir de criterios y evidencia. No toma decisiones curriculares.</p></article></div>
+        <div class="panel"><h3>Controles que la interfaz conserva</h3><ul class="rules"><li>Aplicar a cada nota los RA que la matriz asigna a la actividad o, si es examen, todos los RA aportados por la asignatura.</li><li>Ponderar cada evidencia con el aporte asignatura-RA: Introduce 0,33; Refuerza 0,66; Domina 1,00.</li><li>Excluir del cálculo las asignaturas marcadas “Sin aporte” para ese RA.</li><li>No eliminar registros incompletos o inválidos: se mantienen en revisión y fuera del cálculo.</li><li>Conservar la trazabilidad de los registros incluidos y de sus pesos.</li><li>Mantener los RA asociados a una versión curricular para conservar el histórico.</li></ul></div>
+      </section>
+    </main>
+  </div>
+  <footer><div class="container">CORA · Fisioterapia · Herramienta de seguimiento académico</div></footer>
+  <script src="assets/activity-mappings.js?v=cora-20260926"></script>
+  <script src="assets/mappings.js?v=cora-20260926"></script>
+  <script src="assets/app.js?v=cora-20260926"></script>
+</body>
+</html>

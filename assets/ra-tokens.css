@@ -1,0 +1,57 @@
+/*
+ * Tokens de diseño · Evaluación de Resultados de Aprendizaje
+ * Departamento de Fisioterapia · Universidad del Cauca
+ *
+ * Colores institucionales tomados del Manual de Identidad Visual
+ * de la Universidad del Cauca (versión 2024).
+ *   Azul institucional  RGB 0 18 130   CMYK 100 92 26 11
+ *   Rojo institucional  RGB 173 0 0    CMYK 21 100 100 16
+ * Tipografías institucionales: EB Garamond (títulos) y Open Sans (texto).
+ */
+:root {
+  /* Institucionales */
+  --ra-azul: #001282;
+  --ra-azul-500: #1B2C9E;
+  --ra-azul-400: #2F3FA6;
+  --ra-azul-300: #97A0DA;
+  --ra-azul-200: #C7CCEA;
+  --ra-azul-100: #E3E6F5;
+  --ra-rojo: #AD0000;
+
+  /* Neutros */
+  --ra-fondo: #F4F1EA;
+  --ra-papel: #FBFAF7;
+  --ra-blanco: #FFFFFF;
+  --ra-franja: #EAE6DC;
+  --ra-linea: #D6D0C2;
+  --ra-linea-suave: #E2DDD0;
+  --ra-linea-control: #C9C2B2;
+  --ra-tinta: #161C2D;
+  --ra-tinta-2: #4A5063;
+  --ra-tinta-3: #5A5F70;
+
+  /* Texto sobre la barra lateral azul */
+  --ra-rail-texto: #D5D9E4;
+  --ra-rail-texto-2: #C7CCEA;
+  --ra-rail-rotulo: #8E96AE;
+
+  /* Niveles de desempeño (escala 0.0 a 5.0, aprobatoria 3.0) */
+  --ra-nivel-insuficiente: #AD0000;
+  --ra-nivel-insuficiente-texto: #FFFFFF;
+  --ra-nivel-basico: #E3E6F5;
+  --ra-nivel-basico-texto: #161C2D;
+  --ra-nivel-competente: #97A0DA;
+  --ra-nivel-competente-texto: #161C2D;
+  --ra-nivel-destacado: #001282;
+  --ra-nivel-destacado-texto: #FFFFFF;
+
+  /* Tipografía */
+  --ra-fuente-titulos: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --ra-fuente-texto: 'Open Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Espaciado y forma */
+  --ra-radio: 6px;
+  --ra-radio-tarjeta: 8px;
+  --ra-control-alto: 44px;
+  --ra-rail-ancho: 232px;
+}

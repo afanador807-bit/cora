@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CORA, Calificación Objetiva de Resultados de Aprendizaje del programa de Fisioterapia.">
+  <title>CORA · Fisioterapia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap">
+  <link rel="stylesheet" href="assets/ra-tokens.css?v=cora-ajustes-20260926">
+  <link rel="stylesheet" href="assets/styles.css?v=cora-red-movil-20260928">
+</head>
+<body>
+  <a class="skip-link" href="#main">Ir al contenido</a>
+  <header class="site-header">
+    <div class="container header-content">
+      <div class="brand"><img class="brand-logo" src="assets/cora-logo.png?v=cora-logo-20260926" alt="Logotipo de CORA"><div><p class="eyebrow">Universidad del Cauca · Fisioterapia</p><h1>Calificación Objetiva de Resultados de Aprendizaje</h1></div></div>
+      <span class="status"><i></i>Versión estática</span>
+    </div>
+  </header>
+  <div class="container layout">
+    <nav class="sidebar" aria-label="Navegación principal">
+      <span class="nav-group">Seguimiento</span>
+      <button class="nav-item is-active" data-view="inicio"><span>01</span> Panel del programa</button>
+      <button class="nav-item" data-view="estudiantes"><span>02</span> Trayectoria estudiante</button>
+      <button class="nav-item" data-view="resultados"><span>03</span> Resultados RA</button>
+      <span class="nav-group">Análisis y control</span>
+      <button class="nav-item" data-view="cargas"><span>04</span> Cargas CSV</button>
+      <button class="nav-item" data-view="alineacion"><span>05</span> Alineación</button>
+      <button class="nav-item" data-view="interconexion"><span>06</span> Interconexión curricular</button>
+      <button class="nav-item" data-view="trazabilidad"><span>07</span> Trazabilidad</button>
+      <button class="nav-item" data-view="gobierno"><span>08</span> Gobierno y reglas</button>
+    </nav>
+    <main id="main">
+      <section class="view is-active" id="inicio">
+        <div class="page-heading"><div><p class="eyebrow">Seguimiento · coordinación</p><h2>Panel del programa</h2><p>Estado de la evidencia importada y resultados de aprendizaje disponibles.</p></div><button class="button primary" id="load-example">Cargar ejemplo</button></div>
+        <div class="notice"><strong>Regla de medición.</strong> Las actividades codificadas usan el mapeo precargado. Todo examen se asigna automáticamente a cada RA con aporte en su asignatura; el aporte determina su peso: Introduce 0,33, Refuerza 0,66 y Domina 1,00.</div>
+        <div class="metrics" id="metrics"></div>
+        <section class="panel" aria-labelledby="program-summary-title"><div class="chart-heading"><div><h3 id="program-summary-title">Resumen de logro ponderado</h3><p class="muted">Agregado de registros válidos mapeados en los periodos cargados.</p></div><button type="button" class="button secondary" data-open-view="resultados">Ver resultados completos</button></div><div id="program-ra-summary" class="program-ra-summary"><p class="muted">Cargue notas para mostrar el consolidado del programa.</p></div></section>
+        <div class="panel split"><div><h3>Flujo controlado</h3><ol class="process"><li class="done"><b>1</b><span>Profesor entrega calificaciones</span></li><li class="done"><b>2</b><span>El sistema normaliza y agrupa actividades</span></li><li><b>3</b><span>El código aplica el mapeo precargado; el examen hereda todos los RA aportados</span></li><li><b>4</b><span>El nivel de aporte define el peso para cada RA</span></li><li><b>5</b><span>El resultado ponderado conserva su trazabilidad</span></li></ol></div><div><h3>Estado de los mapeos</h3><div class="empty-chart" id="alignment-chart"><span>Sin datos cargados</span></div></div></div>
+      </section>
+      <section class="view" id="cargas">
+        <div class="page-heading"><div><p class="eyebrow">Registro académico</p><h2>Cargar notas</h2><p>Elija el periodo y añada los archivos CSV de sus asignaturas.</p></div></div>
+        <div class="panel"><div class="import-options"><label>Periodo de las notas que va a agregar<select id="period-choice" required><option value="">Seleccione el periodo</option><option>2024-1</option><option>2024-2</option><option>2025-1</option><option>2025-2</option><option>2026-1</option><option>2026-2</option><option>2027-1</option><option>2027-2</option><option value="otro">Otro periodo…</option></select></label><label id="custom-period-wrap" hidden>Escriba el periodo<input id="custom-period" type="text" placeholder="Ej. 2028-1"></label><label>Al cargar archivos<select id="import-mode"><option value="append">Agregar a los datos cargados</option><option value="replace">Reemplazar los datos cargados</option></select></label></div><p class="muted">El periodo que seleccione se asignará a todas las notas de esta carga. Para comparar periodos, cargue cada grupo por separado y seleccione “Agregar a los datos cargados”. El semestre se detecta desde el nombre de la asignatura usando la matriz curricular.</p><div class="drop-zone"><input id="file-input" type="file" accept=".csv,text/csv" multiple><label for="file-input"><span class="upload-icon">↑</span><strong>Seleccione uno o varios archivos CSV</strong><small>Incluya asignatura, estudiante, actividad, código, instrumento y nota. El semestre se reconoce por el nombre de asignatura.</small></label></div><div class="actions"><button class="button secondary" id="download-template">Descargar plantilla</button><button class="button ghost" id="clear-data">Limpiar datos locales</button></div></div>
+        <div class="panel" id="import-summary"><h3>Validación de la carga</h3><p class="muted">Aún no se ha cargado información.</p></div>
+        <div class="panel" id="data-validator"><h3>Revisión de calidad del archivo</h3><p class="muted">Cargue notas para identificar filas incompletas, asignaturas desconocidas o actividades sin mapeo.</p></div>
+      </section>
+      <section class="view" id="alineacion">
+        <div class="page-heading"><div><p class="eyebrow">Matriz curricular</p><h2>Actividades y alineación</h2><p>La página reconoce asignatura y semestre, y aplica los códigos y RA definidos en la matriz.</p></div><button class="button primary" id="generate-package">Preparar análisis de actividades</button></div>
+        <div class="notice"><strong>Mapeo aplicado automáticamente.</strong> La tributación oficial determina los RA asociados. Si el nombre de la actividad o instrumento contiene “examen”, se mapea a todos los RA con aporte de la asignatura aunque no incluya código.</div>
+        <div class="panel"><div class="table-wrap"><table><thead><tr><th>Actividad</th><th>Asignatura</th><th>Semestre detectado</th><th>Tributación curricular oficial</th><th>Código</th><th>Instrumento</th><th>Registros</th><th>Mapeo de actividad</th></tr></thead><tbody id="activities-table"></tbody></table></div></div>
+        <dialog id="package-dialog"><form method="dialog"><div class="dialog-header"><div><p class="eyebrow">Datos de análisis</p><h3>Paquete de actividades</h3></div><button class="icon-button" aria-label="Cerrar">×</button></div><p>Incluye los códigos, los semestres y las alineaciones curriculares detectadas para las actividades cargadas.</p><textarea id="ai-package" readonly></textarea><div class="actions"><button class="button secondary" id="copy-package" type="button">Copiar JSON</button><button class="button primary">Cerrar</button></div></form></dialog>
+      </section>
+      <section class="view" id="interconexion">
+        <div class="page-heading"><div><p class="eyebrow">Mapa del plan de estudios</p><h2>Interconexión curricular</h2><p>Explore cómo se conectan las asignaturas, los resultados de aprendizaje, las competencias y el perfil de egreso.</p></div></div>
+        <div class="network-workspace">
+          <section class="network-main panel" aria-label="Explorador de red curricular">
+            <div class="network-controls network-controls--main">
+              <label>Buscar o elegir asignatura<select id="network-subject" aria-label="Buscar o elegir asignatura"></select></label>
+              <button class="button secondary" id="network-reset" type="button">Restablecer red</button>
+            </div>
+            <details class="network-options"><summary>Filtros y alcance de la red</summary><div class="network-controls network-controls--filters">
+              <label>Tipo de conexión entre asignaturas<select id="network-type"><option value="Todas">Todas las relaciones</option></select></label>
+              <label>Semestre de asignaturas conectadas<select id="network-neighbor-semester"><option value="Todos">Todos los semestres</option></select></label>
+              <label>Grados de conexión <output id="network-depth-value">2</output><input id="network-depth" type="range" min="1" max="4" value="2" step="1"></label>
+              <label>Propagación<select id="network-direction"><option value="ambas">En ambas direcciones</option><option value="aguas-arriba">Hacia asignaturas anteriores</option><option value="aguas-abajo">Hacia asignaturas posteriores</option></select></label>
+              <label>Organización<select id="network-layout"><option value="organica">Red neuronal</option><option value="semestres">Orden cronológico por semestre</option></select></label>
+              <fieldset class="network-layer-toggles"><legend>Capas visibles</legend><label><input type="checkbox" data-network-layer="ra" checked> RA</label><label><input type="checkbox" data-network-layer="competencia" checked> Competencias</label><label><input type="checkbox" data-network-layer="perfil" checked> Perfil de egreso</label></fieldset>
+            </div></details>
+            <div class="network-topline"><p id="network-summary" class="network-summary" aria-live="polite"></p><div class="network-zoom" aria-label="Controles de zoom"><button type="button" id="network-zoom-out" aria-label="Alejar red">−</button><button type="button" id="network-zoom-in" aria-label="Acercar red">+</button></div></div>
+            <div class="network-legend" aria-label="Leyenda de la red"><span><i class="network-key subject"></i>Asignatura</span><span><i class="network-key ra"></i>RA</span><span><i class="network-key competency"></i>Competencia</span><span><i class="network-key profile"></i>Perfil de egreso</span></div>
+            <div id="curricular-network" class="curricular-network" role="region" aria-label="Red curricular interactiva"></div>
+            <p class="network-help">Arrastre el fondo para recorrer la red · use el zoom · seleccione un nodo para expandir sus conexiones.</p>
+          </section>
+          <details id="network-inspector" class="network-inspector" open>
+            <summary><span id="network-inspector-title">Ficha del nodo</span><span id="network-relation-count" class="badge"></span></summary>
+            <div class="network-inspector-body"><section><h3>Conexiones con asignaturas</h3><div id="network-relations" class="network-relations"></div></section><section><h3>Resultados, competencias y perfil asociados</h3><div id="network-mappings" class="network-mappings"></div></section></div>
+          </details>
+        </div>
+      </section>
+      <section class="view" id="resultados">
+        <div class="page-heading"><div><p class="eyebrow">Medición reproducible</p><h2>Resultados de aprendizaje</h2><p>Logro ponderado en escala de 0 a 5 por RA, semestre y periodo académico.</p></div></div>
+        <div class="notice"><strong>Fórmula aplicada.</strong> Aporte de cada nota = nota × factor del RA. Introduce = 0,33; Refuerza = 0,66; Domina = 1,00. Se promedian las notas ponderadas por RA, semestre y periodo; el resultado se expresa en escala de 0 a 5. Ejemplo: una nota de 4,0 aporta 1,32 en Introduce, 2,64 en Refuerza y 4,00 en Domina. Se excluyen filas inválidas y asignaturas con “Sin aporte”.</div>
+        <p id="results-quality" class="result-quality" role="status">Los errores de algunas filas no impiden calcular el resultado: se omiten y se usan los registros válidos.</p>
+        <div class="panel"><div class="chart-heading"><div><h3>Trayectoria de RA por semestre</h3><p class="muted">Seleccione periodo, semestres, RA y medida para comparar.</p></div><div class="chart-controls"><label>Periodo<select id="trajectory-period"><option value="">Sin datos</option></select></label><label>Medida<select id="trajectory-metric"><option value="directScore">Aporte ponderado</option><option value="creditWeightedScore">Aporte ponderado por créditos</option><option value="creditComparableScore">Progresión comparable por créditos</option></select></label></div></div><fieldset class="semester-fieldset"><legend>Semestres a mostrar</legend><div id="trajectory-semester-options" class="semester-options"><span class="muted">Cargue notas para mostrar semestres.</span></div><button class="text-button" id="select-all-semesters" type="button">Seleccionar todos</button></fieldset><fieldset class="ra-chart-filter"><legend>Resultados a mostrar</legend><div id="trajectory-ra-options" class="ra-chart-toggles"></div></fieldset><div id="period-chart" class="bar-chart"><span class="muted">Cargue notas para generar el gráfico.</span></div></div>
+        <div class="panel"><div class="chart-heading"><div><h3>Comparación de RA dentro de un periodo</h3><p class="muted">Compare los semestres del periodo con la medida que elija.</p></div><div class="chart-controls"><label>Periodo<select id="period-filter"><option value="">Sin datos</option></select></label><label>Medida<select id="period-metric"><option value="directScore">Aporte ponderado</option><option value="creditWeightedScore">Aporte ponderado por créditos</option><option value="creditComparableScore">Progresión comparable por créditos</option></select></label></div></div><fieldset class="ra-chart-filter"><legend>Resultados a mostrar</legend><div id="period-ra-options" class="ra-chart-toggles"></div></fieldset><div id="semester-chart" class="bar-chart"><span class="muted">Cargue notas para generar el gráfico.</span></div></div>
+        <div class="panel"><h3>Valores que alimentan los gráficos</h3><p class="muted">El aporte ponderado conserva nota × factor. Las medidas por créditos promedian primero las evidencias del estudiante en cada asignatura; luego dan peso a cada asignatura según sus créditos.</p><div class="table-wrap"><table><thead><tr><th>Periodo</th><th>Semestre</th><th>RA</th><th>Aporte ponderado (0–5)</th><th>Aporte ponderado por créditos (0–5)</th><th>Progresión comparable por créditos (0–5)</th><th>Evidencias</th><th>Factor promedio</th></tr></thead><tbody id="results-table"></tbody></table></div></div>
+        <div class="panel"><h3>Créditos curriculares por nivel de aporte</h3><p class="muted">Créditos de asignaturas con aporte para cada RA, agrupados por Introduce, Refuerza y Domina. Las asignaturas “Sin aporte” no se cuentan.</p><div class="table-wrap"><table><thead><tr><th>Semestre</th><th>RA1 · Introduce</th><th>RA1 · Refuerza</th><th>RA1 · Domina</th><th>Total RA1</th><th>RA2 · Introduce</th><th>RA2 · Refuerza</th><th>RA2 · Domina</th><th>Total RA2</th></tr></thead><tbody id="credit-matrix-table"></tbody></table></div></div>
+        <div class="panel"><h3>Exportar resultados</h3><p class="muted">Descargue la tabla de resultados o un informe con la metodología aplicada y la tabla incluida.</p><div class="actions"><button class="button secondary" id="download-results-csv" type="button">Descargar tabla CSV</button><button class="button secondary" id="download-results-report" type="button">Descargar informe HTML</button></div></div>
+      </section>
+      <section class="view" id="estudiantes">
+        <div class="page-heading"><div><p class="eyebrow">Seguimiento individual</p><h2>Trayectoria del estudiante</h2><p>Consulte el cambio del logro ponderado por periodo, semestre y resultado de aprendizaje.</p></div></div>
+        <div class="panel"><div class="import-options"><label>Estudiante<select id="student-select"><option value="">Cargue notas para seleccionar un estudiante</option></select></label><label>Periodo<select id="student-period"><option value="">Todos los periodos</option></select></label></div><div id="student-summary" class="notice">Los nombres y notas se leen de los archivos que cargó y permanecen en este navegador.</div><div class="chart-legend"><span><i class="legend-ra1"></i>RA1</span><span><i class="legend-ra2"></i>RA2</span></div><div id="student-ra-chart" class="line-chart"><span class="muted">No hay registros válidos para graficar.</span></div></div>
+        <div class="panel"><h3>Detalle por estudiante</h3><div class="table-wrap"><table><thead><tr><th>Periodo</th><th>Semestre</th><th>RA</th><th>Logro ponderado (0–5)</th><th>Evidencias</th><th>Factor de aporte</th></tr></thead><tbody id="student-table"></tbody></table></div></div>
+      </section>
+      <section class="view" id="trazabilidad">
+        <div class="page-heading"><div><p class="eyebrow">Auditoría</p><h2>Trazabilidad de evidencia</h2><p>El recorrido permite explicar el origen de cada resultado.</p></div></div>
+        <div class="panel"><div class="trace-chain"><span>Estudiante</span><b>→</b><span>Evaluación</span><b>→</b><span>Actividad</span><b>→</b><span>Evidencia</span><b>→</b><span>Alineación</span><b>→</b><span>RA</span></div><div class="table-wrap"><table><thead><tr><th>Estudiante</th><th>Asignatura</th><th>Actividad</th><th>Nota</th><th>Evidencia</th><th>Alineación</th></tr></thead><tbody id="trace-table"></tbody></table></div></div>
+      </section>
+      <section class="view" id="gobierno">
+        <div class="page-heading"><div><p class="eyebrow">Marco operativo</p><h2>Gobierno y reglas estables</h2><p>Resumen funcional tomado del documento maestro del Motor RA.</p></div></div>
+        <div class="rule-grid"><article class="panel"><h3>Programa y comité</h3><p>Define los RA oficiales, la tributación Asignatura → RA y los niveles Introduce, Refuerza y Domina.</p></article><article class="panel"><h3>Coordinador</h3><p>Normaliza, consolida, revisa instrumentos, valida alineaciones y consulta cálculos y reportes.</p></article><article class="panel"><h3>Profesor</h3><p>Entrega el archivo de calificaciones. No configura RA, tributación ni reglas de cálculo.</p></article><article class="panel"><h3>IA</h3><p>Propone una alineación justificada a partir de criterios y evidencia. No toma decisiones curriculares.</p></article></div>
+        <div class="panel"><h3>Controles que la interfaz conserva</h3><ul class="rules"><li>Aplicar a cada nota los RA que la matriz asigna a la actividad o, si es examen, todos los RA aportados por la asignatura.</li><li>Ponderar cada evidencia con el aporte asignatura-RA: Introduce 0,33; Refuerza 0,66; Domina 1,00.</li><li>Excluir del cálculo las asignaturas marcadas “Sin aporte” para ese RA.</li><li>No eliminar registros incompletos o inválidos: se mantienen en revisión y fuera del cálculo.</li><li>Conservar la trazabilidad de los registros incluidos y de sus pesos.</li><li>Mantener los RA asociados a una versión curricular para conservar el histórico.</li></ul></div>
+      </section>
+    </main>
+  </div>
+  <footer><div class="container">CORA · Calificación Objetiva de Resultados de Aprendizaje · Fisioterapia</div></footer>
+  <script src="assets/activity-mappings.js?v=cora-ajustes-20260926"></script>
+  <script src="assets/mappings.js?v=cora-ajustes-20260926"></script>
+  <script src="assets/curricular-network.js?v=cora-red-movil-20260928"></script>
+  <script src="assets/app.js?v=cora-red-movil-20260928"></script>
+  <script src="assets/network-explorer.js?v=cora-red-movil-20260928"></script>
+</body>
+</html>

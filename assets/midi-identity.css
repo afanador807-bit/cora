@@ -1,0 +1,50 @@
+/* Lenguaje visual inspirado en la señalética de midi-main: azul institucional,
+   encabezados tipo placa, títulos Open Sans y acento rojo de orientación. */
+:root{
+  --cora-midi-blue:#001282;
+  --cora-midi-blue-2:#1737a8;
+  --cora-midi-red:#ad0000;
+  --cora-midi-ink:#18213b;
+  --cora-midi-muted:#56617a;
+  --cora-midi-line:#d8deeb;
+  --cora-midi-paper:#f5f7fb;
+}
+body{font-family:"Open Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--cora-midi-ink);background:#fff}
+.site-header{position:relative;background:var(--cora-midi-blue);border:0;border-bottom:4px solid var(--cora-midi-red);box-shadow:0 3px 16px #0012821c}
+.header-content{min-height:106px}
+.brand{gap:17px}
+.brand-logo{padding:3px;border-radius:50%;background:#fff}
+.brand h1{color:#fff;font-family:"Open Sans",system-ui,sans-serif;font-size:clamp(19px,2vw,25px);font-weight:650;letter-spacing:-.025em;line-height:1.2}
+.site-header .eyebrow{color:#dce4ff;font-size:10px;letter-spacing:.13em}
+.program-selector{color:#fff}
+.program-selector select{border-color:#ffffff66;border-radius:5px;background:#fff;color:var(--cora-midi-blue)}
+.layout{padding-top:24px}
+.sidebar{border:1px solid var(--cora-midi-line);border-top:3px solid var(--cora-midi-blue);border-radius:5px;background:#f4f6fb;padding:13px 10px}
+.nav-group,.proposal-menu-group>summary{color:var(--cora-midi-blue);font-family:"Open Sans",system-ui,sans-serif;font-weight:800;letter-spacing:.1em}
+.nav-group{padding:6px 8px;border-bottom:1px solid var(--cora-midi-line)}
+.nav-item{border-radius:4px;color:#34405d}
+.nav-item:hover,.nav-item.is-active{background:#e7ebf8;color:var(--cora-midi-blue);box-shadow:inset 3px 0 var(--cora-midi-red);font-weight:750}
+.nav-item span{color:var(--cora-midi-blue-2)}
+.proposal-menu-group{border-color:var(--cora-midi-line);border-radius:4px;background:#fff}
+.proposal-menu-group>summary{padding:11px 12px}
+.page-heading h2,.proposal-view h2,.panel h3,.proposal-view h3{font-family:"Open Sans",system-ui,sans-serif;color:var(--cora-midi-blue);letter-spacing:-.025em}
+.eyebrow{color:var(--cora-midi-red);font-family:"Open Sans",system-ui,sans-serif;font-weight:800;letter-spacing:.12em}
+.page-heading{padding-bottom:12px;border-bottom:1px solid var(--cora-midi-line)}
+.page-heading h2{font-weight:650}
+.panel,.proposal-view .panel,.proposal-chain.panel,.metric{border-color:var(--cora-midi-line);border-radius:7px;background:#fff;box-shadow:0 5px 18px #11245b0a}
+.panel h3,.proposal-view h3{font-weight:650}
+.button.primary{background:var(--cora-midi-blue);border-radius:5px}
+.button.primary:hover{background:var(--cora-midi-blue-2)}
+.button.secondary{border-radius:5px;background:#edf0fa;border-color:#d7dcef;color:var(--cora-midi-blue)}
+.button.ghost{border-radius:5px}
+th{background:#edf0fa;color:var(--cora-midi-blue)}
+.notice,.notice--warning{border-radius:4px}
+.proposal-view .panel{border-top:2px solid #e2e7f3}
+.proposal-ra-card,.proposal-dimension-card,.proposal-semester-card{border-radius:6px}
+.proposal-chart-legend{font-family:"Open Sans",system-ui,sans-serif}
+.missing-ra-label{font:700 14px "Open Sans",system-ui,sans-serif;opacity:.46}
+.v20-bar-svg .axis-label{font-family:"Open Sans",system-ui,sans-serif}
+@media(max-width:760px){
+  .header-content{min-height:0}
+  .sidebar{border-top-width:2px}
+}
